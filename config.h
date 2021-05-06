@@ -151,6 +151,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_e,      spawn,          SHCMD(TERMINAL " -e lf") },
 	{ MODKEY|ShiftMask,             XK_l,      spawn,          SHCMD("xautolock -locknow") },
 	{ MODKEY,                       XK_w,      spawn,          SHCMD("$BROWSER") },
+	{ MODKEY,                       XK_grave,  spawn,          SHCMD("dmenuunicode") },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
