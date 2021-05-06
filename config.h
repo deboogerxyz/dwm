@@ -7,6 +7,11 @@
 /* appearance */
 static unsigned int borderpx  = 1;        /* border pixel of windows */
 static unsigned int snap      = 32;       /* snap pixel */
+static unsigned int gappih    = 4;        /* horiz inner gap between windows */
+static unsigned int gappiv    = 4;        /* vert inner gap between windows */
+static unsigned int gappoh    = 8;        /* horiz outer gap between windows and screen edge */
+static unsigned int gappov    = 8;        /* vert outer gap between windows and screen edge */
+static int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 1;        /* 0 means bottom bar */
@@ -53,11 +58,25 @@ static float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static int nmaster     = 1;    /* number of clients in master area */
 static int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
+#define FORCE_VSPLIT 1
+#include "vanitygaps.c"
+
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "﬿",      tile },    /* first entry is default */
-	{ "",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
+ 	{ "﬿",	tile },				/* Default: Master on left, slaves on right */
+	{ "侀",	bstack },			/* Master on top, slaves on bottom */
+
+	{ "",	spiral },			/* Fibonacci spiral */
+	{ "",	dwindle },			/* Decreasing in size right and leftward */
+
+	{ "[D]", deck },			/* Master on left, slaves in monocle-like mode on right */
+ 	{ "[M]", monocle },			/* All windows on top of eachother */
+
+	{ "|M|", centeredmaster },		/* Master in middle, slaves on sides */
+	{ ">M>", centeredfloatingmaster },	/* Same but master floats */
+
+	{ "",	NULL },				/* no layout function means floating behavior */
+	{ NULL, NULL },
 };
 
 /* key definitions */
@@ -92,6 +111,11 @@ ResourcePref resources[] = {
 		{ "mfact",       	FLOAT,   &mfact },
 		{ "swallowfloating",    INTEGER, &swallowfloating },
 		{ "barheight",          INTEGER, &user_bh },
+		{ "gappih",		INTEGER, &gappih },
+		{ "gappiv",		INTEGER, &gappiv },
+		{ "gappoh",		INTEGER, &gappoh },
+		{ "gappov",		INTEGER, &gappov },
+		{ "smartgaps",		INTEGER, &smartgaps },
 };
 
 static Key keys[] = {
@@ -105,12 +129,22 @@ static Key keys[] = {
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY|ShiftMask,             XK_h,      setcfact,       {.f = +0.25} },
+	{ MODKEY|ShiftMask,             XK_l,      setcfact,       {.f = -0.25} },
+	{ MODKEY|ShiftMask,             XK_o,      setcfact,       {.f =  0.00} },
+	{ MODKEY,			XK_z,      incrgaps,	   {.i = +3 } },
+	{ MODKEY,			XK_x,      incrgaps,	   {.i = -3 } },
 	{ MODKEY,                       XK_space,  zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,			XK_t,      setlayout,      {.v = &layouts[0]} }, /* tile */
+	{ MODKEY|ShiftMask,		XK_t,      setlayout,      {.v = &layouts[1]} }, /* bstack */
+	{ MODKEY,			XK_y,      setlayout,      {.v = &layouts[2]} }, /* spiral */
+	{ MODKEY|ShiftMask,		XK_y,      setlayout,      {.v = &layouts[3]} }, /* dwindle */
+	{ MODKEY,			XK_u,      setlayout,      {.v = &layouts[4]} }, /* deck */
+	{ MODKEY|ShiftMask,		XK_u,      setlayout,      {.v = &layouts[5]} }, /* monocle */
+	{ MODKEY,			XK_i,      setlayout,      {.v = &layouts[6]} }, /* centeredmaster */
+	{ MODKEY|ShiftMask,		XK_i,      setlayout,      {.v = &layouts[7]} }, /* centeredfloatingmaster */
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
