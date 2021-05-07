@@ -149,7 +149,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY,                       XK_e,      spawn,          SHCMD(TERMINAL " -e lf") },
-	{ MODKEY|ShiftMask,             XK_l,      spawn,          SHCMD("xautolock -locknow") },
+	{ MODKEY|ShiftMask,             XK_l,      spawn,          SHCMD("slock") },
 	{ MODKEY,                       XK_w,      spawn,          SHCMD("$BROWSER") },
 	{ MODKEY,                       XK_grave,  spawn,          SHCMD("dmenuunicode") },
 	{ MODKEY,                       XK_F5,     xrdb,           {0} },
