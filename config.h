@@ -167,6 +167,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_comma,	spawn,		SHCMD("mpc seek 0%") },
 	{ MODKEY,			XK_period,	spawn,		SHCMD("mpc next") },
 	{ MODKEY|ShiftMask,		XK_period,	spawn,		SHCMD("mpc repeat") },
+	{ MODKEY|ShiftMask,		XK_q,		spawn,		SHCMD("sysact")},
 	{ 0, XF86XK_AudioPrev,		spawn,		SHCMD("mpc prev") },
 	{ 0, XF86XK_AudioNext,		spawn,		SHCMD("mpc next") },
 	{ 0, XF86XK_AudioPause,		spawn,		SHCMD("mpc pause") },
@@ -184,7 +185,6 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
 /* button definitions */
