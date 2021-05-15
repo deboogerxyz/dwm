@@ -171,6 +171,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_F1,          spawn,          SHCMD("dmenumount") },
 	{ MODKEY,                       XK_F2,          spawn,          SHCMD("dmenuumount") },
 	{ MODKEY,                       XK_F3,          spawn,          SHCMD(TERMINAL " -e pulsemixer") },
+	{ MODKEY,                       XK_F4,          spawn,          SHCMD("passmenu") },
 	{ MODKEY,                       XK_F5,     xrdb,           {0} },
 	{ 0, XF86XK_AudioPrev,		spawn,		SHCMD("mpc prev") },
 	{ 0, XF86XK_AudioNext,		spawn,		SHCMD("mpc next") },
