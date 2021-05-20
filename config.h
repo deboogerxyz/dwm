@@ -173,6 +173,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_F3,          spawn,          SHCMD(TERMINAL " -e pulsemixer") },
 	{ MODKEY,                       XK_F4,          spawn,          SHCMD("passmenu") },
 	{ MODKEY,                       XK_F5,     xrdb,           {0} },
+	{ MODKEY,			XK_s,	spawn,		SHCMD("screen") },
+	{ MODKEY|ShiftMask,		XK_s,	spawn,		SHCMD("screensel") },
 	{ 0, XF86XK_AudioMute,		spawn,		SHCMD("pamixer -t") },
 	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("pamixer --allow-boost -i 3") },
 	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("pamixer --allow-boost -d 3") },
@@ -186,6 +188,7 @@ static Key keys[] = {
 	{ 0, XF86XK_AudioForward,	spawn,		SHCMD("mpc seek +10; kill -40 $(pidof dwmblocks)") },
 	{ 0, XF86XK_ScreenSaver,	spawn,		SHCMD("slock") },
 	{ 0, XK_Print,			spawn,		SHCMD("screen") },
+	{ ShiftMask, XK_Print,		spawn,		SHCMD("screensel") },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
