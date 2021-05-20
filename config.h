@@ -185,6 +185,7 @@ static Key keys[] = {
 	{ 0, XF86XK_AudioRewind,	spawn,		SHCMD("mpc seek -10; kill -40 $(pidof dwmblocks)") },
 	{ 0, XF86XK_AudioForward,	spawn,		SHCMD("mpc seek +10; kill -40 $(pidof dwmblocks)") },
 	{ 0, XF86XK_ScreenSaver,	spawn,		SHCMD("slock") },
+	{ 0, XK_Print,			spawn,		SHCMD("screen") },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
